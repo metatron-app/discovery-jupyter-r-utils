@@ -14,18 +14,29 @@ set_params <- function(...){
 }
 
 # Get raw data (json format) of selected chart
-charts.get <- function(url = client.url(), did) {
-  req = httr::POST(paste(url, "/api/widgets/", did, "/data", sep=""))
+charts.get <- function(url = client.url(), did, ...) {
+  api_params <- c(...)
+  api_url <- paste(url, "/api/widgets/", did, "/data", sep="")
+
+  req = httr::POST(
+    url = api_url,
+    query = api_params
+  )
   jsonlite::fromJSON(httr::content(req, "text"))
 }
 # Get raw data (json format) of selected dashboard
-dashboards.get <- function(url = client.url(), did) {
-  req = httr::POST(paste(url, "/api/dashboards/", did, "/data", sep=""))
+dashboards.get <- function(url = client.url(), did, ...) {
+  api_params <- c(...)
+  api_url <- paste(url, "/api/dashboards/", did, "/data", sep="")
+
+  req = httr::POST(
+    url = api_url,
+    query = api_params
+  )
   jsonlite::fromJSON(httr::content(req, "text"))
 }
 # Get raw data (json format) of selected datasource
 datasources.get <- function(url = client.url(), did, ...) {
-
   api_params <- c(...)
   api_url <- paste(url, "/api/datasources/", did, "/data", sep="")
 
